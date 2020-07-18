@@ -48,7 +48,7 @@ interval = 3
 
 format = <ramp-used> <label>
 
-label = %gb_used%/%gb_total%
+label = %gb_used%
 
 ramp-used-0 = 
 ramp-used-0-foreground = ${colors.success}
@@ -69,22 +69,6 @@ interval = 10
 
 label =  %notifications%
 
-[module/daily-poem]
-type = custom/ipc
-
-# replace B25KQR2Z50dxWG2oLX+PfPG5OqP/BG4s with your token from https://v2.jinrishici.com/token.
-hook-0 = ~/.config/polybar/scripts/daily-poem require B25KQR2Z50dxWG2oLX+PfPG5OqP/BG4s ~/.config/polybar/scripts/poem.txt
-hook-1 = ~/.config/polybar/scripts/daily-poem get ~/.config/polybar/scripts/poem.txt plus
-hook-2 = ~/.config/polybar/scripts/daily-poem get ~/.config/polybar/scripts/poem.txt minus
-
-initial = 1
-
-scroll-up = polybar-msg -p %pid% hook daily-poem 2
-scroll-down = polybar-msg -p %pid% hook daily-poem 3
-double-click-left = polybar-msg -p %pid% hook daily-poem 1
-
-format-underline = ${colors.nord7}
-
 [module/network-detail]
 type = internal/network
 interface = ${config.interface}
@@ -96,10 +80,23 @@ format-connected = <label-connected>
 label-connected =  %downspeed:9%   %upspeed:9%
 label-connected-foreground = ${colors.success}
 
+[module/system-cpu-temperature]
+type = custom/script
+exec = ~/.config/polybar/scripts/system-cpu-temperature.sh
+interval = 3
+
+format =  <label>
+format-foreground = ${colors.nord8}
+
+label = %output%
+;label-padding = 1
+;label-foreground = ${colors.nord4}
+
 [module/temperature]
 type = internal/temperature
 
 thermal-zone = ${config.thermal-zone}
+hwmon-path = ${config.hwmon-path}
 
 base-temperature = ${config.base-temperature}
 
@@ -139,3 +136,14 @@ exec = ~/.config/polybar/scripts/openweathermap-fullfeatured.sh
 interval = 600
 
 label-font = 4
+
+[module/spotify]
+type = custom/script
+interval = 1
+format-prefix = "  "
+format = <label>
+exec = python ~/.config/polybar/scripts/spotify_status.py -f '{artist} - {song}'
+
+[module/xwindow]
+type                     = internal/xwindow
+label                    = %title:0:100:...%

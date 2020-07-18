@@ -4,11 +4,11 @@ type = internal/i3
 
 pin-workspaces = ${config.i3-pin-workspaces}
 
-strip-wsnumbers = true
+strip-wsnumbers = false
 
 index-sort = true
 enable-click = true
-enable-scroll = true
+enable-scroll = false
 wrapping-scroll = true
 reverse-scroll = true
 
@@ -243,7 +243,6 @@ icon-repeat = 
 icon-repeat-margin = 1
 icon-random = 
 icon-random-margin = 1
-
 toggle-on-foreground = ${colors.success}
 toggle-off-foreground = ${colors.urgent}
 
@@ -293,22 +292,6 @@ ramp-signal-2-underline = ${colors.nord7}
 
 ramp-signal-3-foreground = ${colors.success}
 ramp-signal-3-underline = ${colors.success}
-
-[module/clash-widget]
-type = custom/script
-
-exec = ~/.config/polybar/scripts/clash.sh
-interval = 0
-
-click-left = ~/.config/polybar/scripts/clash.sh toggle
-
-[module/onedrive-widget]
-type = custom/script
-
-exec = ~/.config/polybar/scripts/onedrive.sh
-interval = 0
-
-click-left = ~/.config/polybar/scripts/onedrive.sh toggle
 
 [module/clipmenu-widget]
 type = custom/script
